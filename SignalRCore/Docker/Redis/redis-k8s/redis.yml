@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: redis-claim0
+  name: redis-claim0
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis-pod
+  labels:
+    app: redis
+spec:
+  containers:
+    - name: redis
+      args:
+        - redis-server
+        - --appendonly
+        - "yes"
+      image: redis:latest
+      ports:
+        - containerPort: 6379
+      volumeMounts:
+        - mountPath: /data
+          name: redis-claim0
+  volumes:
+    - name: redis-claim0
+      persistentVolumeClaim:
+        claimName: redis-claim0
+        
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: redis-svc-lb
+spec:
+    type: LoadBalancer
+    ports:
+    -   port: 6379
+        targetPort: 6379
+    selector:
+        app: redis
+        
+# version: "3"
+# services:
+  # p3x:
+    # image: patrikx3/p3x-redis-ui:latest
+    # ports:
+      # - "7843:7843"
+    # volumes:
+        # # here you can set your own /home/user/p3x-redis-ui-settings folder
+        # - /home/user/p3x-redis-ui-settings:/settings 
+    # networks:
+      # - webnet
+
+  # redis:
+    # image: redis
+    # ports:
+      # - "6379:6379"
+    # volumes:
+      # - "./data:/data"
+    # command: redis-server --appendonly yes
+    # networks:
+      # - webnet
+      
+# networks:
+  # webnet:
