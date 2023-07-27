@@ -10,10 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-
 //Check redis connection 
-
+//TODO
 //ConnectionMultiplexer redis;
 //try
 //{
@@ -30,70 +28,9 @@ builder.Services.AddSwaggerGen();
 //    Console.WriteLine("[REDIS] Failed to connect to 'localhost:6379'");
 //}
 
-//try
-//{
-//    redis = ConnectionMultiplexer.Connect(
-//                new ConfigurationOptions
-//                {
-//                    EndPoints = { "10.110.185.23:6379" },
-//                });
-
-//    Console.WriteLine("[REDIS] connected to '10.110.185.23:6379'");
-//}
-//catch (Exception)
-//{
-//    Console.WriteLine("[REDIS] Failed to connect to '10.110.185.23:6379'");
-//}
-
-//try
-//{
-//    redis = ConnectionMultiplexer.Connect(
-//                new ConfigurationOptions
-//                {
-//                    EndPoints = { "10.110.185.23" },
-//                });
-
-//    Console.WriteLine("[REDIS] connected to '10.110.185.23'");
-//}
-//catch (Exception)
-//{
-//    Console.WriteLine("[REDIS] Failed to connect to '10.110.185.23'");
-//}
-
-//try
-//{
-//    redis = ConnectionMultiplexer.Connect(
-//                new ConfigurationOptions
-//                {
-//                    EndPoints = { "http://10.110.185.23" },
-//                });
-
-//    Console.WriteLine("[REDIS] connected to 'http://10.110.185.23'");
-//}
-//catch (Exception)
-//{
-//    Console.WriteLine("[REDIS] Failed to connect to 'http://10.110.185.23'");
-//}
-
-
-//try
-//{
-//    redis = ConnectionMultiplexer.Connect(
-//                new ConfigurationOptions
-//                {
-//                    EndPoints = { "http://10.110.185.23:6379" },
-//                });
-
-//    Console.WriteLine("[REDIS] connected to 'http://10.110.185.23:6379'");
-//}
-//catch (Exception)
-//{
-//    Console.WriteLine("[REDIS] Failed to connect to 'http://10.110.185.23:6379'");
-//}
-
 //SignalR declaration
-builder.Services.AddSignalR()
-       .AddStackExchangeRedis("10.110.185.23", options => { options.Configuration.AbortOnConnectFail = false; }); ;
+builder.Services.AddSignalR();
+       //TOTO.AddStackExchangeRedis("10.110.185.23", options => { options.Configuration.AbortOnConnectFail = false; }); ;
 
 var app = builder.Build();
 

@@ -1,10 +1,15 @@
 ﻿// See https://aka.ms/new-console-template for more information
+
 using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.SignalR.Client;
 
+Console.Write("Enter room number: ");
+var roomId = Console.ReadLine();
+
 //Set SignalR connection
 var connection = new HubConnectionBuilder()
-                .WithUrl("http://localhost:5051/chatHub", options=>
+                .WithUrl($"http://localhost:5051/chatHub/22", options=>
+                //.WithUrl($"http://localhost:5051/chatHub?id={roomId}", options=>
                 //.WithUrl("http:/signal.localhost/chatHub", options=>
                 {
                     options.SkipNegotiation = true;
